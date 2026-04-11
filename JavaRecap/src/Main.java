@@ -13,7 +13,7 @@ class JavaRecap{
         //book variables
         String bookName = "";
         String authorName = "";
-        int numberOfPage = 0;
+        int numberOfPages = 0;
         String isbnNumber = "";
         int bookPrice = 0;
 
@@ -51,21 +51,24 @@ class JavaRecap{
                 System.out.print("Enter author of the book :  ");
                 authorName = keyboard.nextLine();
                 System.out.print("Enter Number Of Pages : ");
-                numberOfPage = keyboard.nextInt();
+                numberOfPages = keyboard.nextInt();
                 keyboard.nextLine();
                 System.out.print("Enter ISBN Number of the book : ");
                 isbnNumber = keyboard.nextLine();
                 System.out.print("Enter Price Of The Book : ");
                 bookPrice = keyboard.nextInt();
 
+                //adding a book simply imitating user input here : if they were to add multiple books
+                book.setBookName(bookName);
+                book.setAuthorName(authorName);
+                book.setNumberOfPages(numberOfPages);
+                book.setISBNNumber(isbnNumber);
+                book.setBookPrice(bookPrice);
+
                 System.out.println("Would you like to continue adding books?");
                 System.out.println("Enter 1 + Enter key if you would like to add more books.");
                 System.out.println("Enter 5 + Enter key for the main menu.");
                 option = keyboard.nextInt();
-
-//                if(option==1){
-//
-//                }
 
             }
             else if(option==2){
@@ -78,13 +81,6 @@ class JavaRecap{
             }
 
         }
-
-        //adding a book simply imitating user input here : if they were to add multiple books
-        book.setBookName("The Art Of Not Giving A Fuck");
-        book.setAuthorName("Faithy Faith");
-        book.setNumberOfPages(30);
-        book.setISBNNumber("978-0-13-468599-1");
-        book.setBookPrice(400);
 
         //adding a laptop here simply imitating user input here too
         laptop.setLaptopName("Mac-book Air");
