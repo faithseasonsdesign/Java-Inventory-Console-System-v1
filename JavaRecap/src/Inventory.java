@@ -8,10 +8,7 @@ public class Inventory{
     private ArrayList<Laptop> laptops = new ArrayList<>();
     private ArrayList<Car> cars = new ArrayList<>();
 
-    public Inventory(ArrayList<Book> books,ArrayList<Laptop> laptops,ArrayList<Car> cars){
-        this.books = books;
-        this.laptops = laptops;
-        this.cars = cars;
+    public Inventory(){
     }
 
     //setters
