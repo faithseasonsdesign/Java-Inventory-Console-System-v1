@@ -58,48 +58,94 @@ class JavaRecap{
                 System.out.print("Enter Price Of The Book : ");
                 bookPrice = keyboard.nextInt();
 
-                //adding a book simply imitating user input here : if they were to add multiple books
+                //adding a book
                 book.setBookName(bookName);
                 book.setAuthorName(authorName);
                 book.setNumberOfPages(numberOfPages);
                 book.setISBNNumber(isbnNumber);
                 book.setBookPrice(bookPrice);
 
+                books.add(book);
+                inventory.setBooks(books);
+
                 System.out.println("Would you like to continue adding books?");
                 System.out.println("Enter 1 + Enter key if you would like to add more books.");
                 System.out.println("Enter 5 + Enter key for the main menu.");
                 option = keyboard.nextInt();
 
+                if(option==5){
+                    displayInformation();
+                    option = keyboard.nextInt();
+                }
+
             }
             else if(option==2){
-                System.out.println("We can now add laptops logic here");
+
+                System.out.print("Enter Laptop Name : ");
+                laptopName = keyboard.nextLine();
+                keyboard.nextLine();
+                System.out.print("Enter Laptop Model : ");
+                laptopModel = keyboard.nextLine();
+                System.out.print("Enter Laptop Price : ");
+                laptopPrice = keyboard.nextInt();
+
+                //adding a laptop
+                laptop.setLaptopName(laptopName);
+                laptop.setLaptopModel(laptopModel);
+                laptop.setLaptopPrice(laptopPrice);
+
+                laptops.add(laptop);
+                inventory.setLaptops(laptops);
+
+                //prompting the user if they want to continue or not
+                System.out.println("Would you like to continue adding laptops?");
+                System.out.println("Enter 2 + Enter key if you would like to add more laptops.");
+                System.out.println("Enter 5 + Enter key for the main menu.");
+                option = keyboard.nextInt();
+
+                if(option==5){
+                    displayInformation();
+                    option = keyboard.nextInt();
+                }
+
             }
             else if(option==3){
-                System.out.println("We can now add the cars logic here");
+
+                System.out.print("Enter Car Name : ");
+                carName = keyboard.nextLine();
+                keyboard.nextLine();
+                System.out.print("Enter Car Model : ");
+                carModel = keyboard.nextLine();
+                System.out.print("Enter Car Price : ");
+                carPrice = keyboard.nextInt();
+                System.out.print("Enter Car Registration Number : ");
+                carRegistrationNumber = keyboard.nextLine();
+
+                //add car information
+                car.setCarName(carName);
+                car.setCarModel(carModel);
+                car.setCarPrice(carPrice);
+                car.setCarRegistrationNumber(carRegistrationNumber);
+
+                cars.add(car);
+                inventory.setCars(cars);
+
+                //prompting the user if they want to continue or not
+                System.out.println("Would you like to continue adding laptops?");
+                System.out.println("Enter 3 + Enter key if you would like to add more cars.");
+                System.out.println("Enter 5 + Enter key for the main menu.");
+                option = keyboard.nextInt();
+
+                if(option==5){
+                    displayInformation();
+                    option = keyboard.nextInt();
+                }
+
             }else{
                 System.out.println("Invalid input");
             }
 
         }
-
-        //adding a laptop here simply imitating user input here too
-        laptop.setLaptopName("Mac-book Air");
-        laptop.setLaptopModel("Mac18");
-        laptop.setLaptopPrice(12000);
-
-        //adding a car simply imitating user input here to : consider if they were to add multiple cars and the logic was complete
-        car.setCarName("Porche");
-        car.setCarModel("911");
-        car.setCarPrice(2000000);
-        car.setCarRegistrationNumber("1323DF");
-
-        books.add(book);
-        laptops.add(laptop);
-        cars.add(car);
-
-        inventory.setBooks(books);
-        inventory.setLaptops(laptops);
-        inventory.setCars(cars);
 
     }
     public static void displayInformation(){
