@@ -10,17 +10,6 @@ class JavaRecap{
 
         Scanner keyboard = new Scanner(System.in);
 
-        //laptop variables
-        String laptopName = "";
-        String laptopModel = "";
-        int laptopPrice = 0;
-
-        //car variables
-        String carName  = "";
-        String carModel = "";
-        int carPrice = 0;
-        String carRegistrationNumber = "";
-
         Book book = new Book("","",0,"",0);
         Laptop laptop = new Laptop("","",0);
         Car car = new Car("","",20,"");
@@ -33,6 +22,8 @@ class JavaRecap{
 
         //storing information now.
         ArrayList<Book> bookList = new ArrayList<>();
+        ArrayList<Laptop> laptopList = new ArrayList<>();
+        ArrayList<Car> carsList = new ArrayList<>();
 
         displayInformation();
         option = keyboard.nextInt();
@@ -42,7 +33,7 @@ class JavaRecap{
 
             if(option==1){
 
-                addNewBook(book,books,inventory);
+                inventory.addNewBook(book,books,inventory,keyboard);
                 rePromptingUser("book",1);
                 option = keyboard.nextInt();
 
@@ -54,26 +45,8 @@ class JavaRecap{
             }
             else if(option==2){
 
-                System.out.print("Enter Laptop Name : ");
-                laptopName = keyboard.nextLine();
-                keyboard.nextLine();
-                System.out.print("Enter Laptop Model : ");
-                laptopModel = keyboard.nextLine();
-                System.out.print("Enter Laptop Price : ");
-                laptopPrice = keyboard.nextInt();
-
-                //adding a laptop
-                laptop.setLaptopName(laptopName);
-                laptop.setLaptopModel(laptopModel);
-                laptop.setLaptopPrice(laptopPrice);
-
-                laptops.add(laptop);
-                inventory.setLaptops(laptops);
-
-                //prompting the user if they want to continue or not
-                System.out.println("Would you like to continue adding laptops?");
-                System.out.println("Enter 2 + Enter key if you would like to add more laptops.");
-                System.out.println("Enter 5 + Enter key for the main menu.");
+                inventory.addNewLaptop(laptop,laptops,inventory,keyboard);
+                rePromptingUser("laptop",2);
                 option = keyboard.nextInt();
 
                 if(option==5){
@@ -84,29 +57,8 @@ class JavaRecap{
             }
             else if(option==3){
 
-                System.out.print("Enter Car Name : ");
-                carName = keyboard.nextLine();
-                keyboard.nextLine();
-                System.out.print("Enter Car Model : ");
-                carModel = keyboard.nextLine();
-                System.out.print("Enter Car Price : ");
-                carPrice = keyboard.nextInt();
-                System.out.print("Enter Car Registration Number : ");
-                carRegistrationNumber = keyboard.nextLine();
-
-                //add car information
-                car.setCarName(carName);
-                car.setCarModel(carModel);
-                car.setCarPrice(carPrice);
-                car.setCarRegistrationNumber(carRegistrationNumber);
-
-                cars.add(car);
-                inventory.setCars(cars);
-
-                //prompting the user if they want to continue or not
-                System.out.println("Would you like to continue adding laptops?");
-                System.out.println("Enter 3 + Enter key if you would like to add more cars.");
-                System.out.println("Enter 5 + Enter key for the main menu.");
+                inventory.addNewLaptop(laptop,laptops,inventory,keyboard);
+                rePromptingUser("car",3);
                 option = keyboard.nextInt();
 
                 if(option==5){
@@ -121,18 +73,17 @@ class JavaRecap{
                     rePromptingUser("book",1);
                     option = keyboard.nextInt();
                     if(option==1){
-                        addNewBook(book,books,inventory);
+                        inventory.addNewBook(book,books,inventory,keyboard);
                         rePromptingUser("book",1);
                         option = keyboard.nextInt();
-                    }else if(option==5){
+                    }
+                    if(option==5){
                         displayInformation();
                         option = keyboard.nextInt();
                     }
-                }else{
-                    System.out.println("Would you like to view which books are in the inventory? ");
-                    System.out.println("Press 1 + Enter key if yes : ");
-                    System.out.println("Press 2 + Enter key if no : ");
-                    System.out.println("Press 0 + Enter key if you want to exit the program");
+                }
+                else{
+                    viewProductPrompt("book");
                     option = keyboard.nextInt();
                     //get list of books
                     if(option==1){
@@ -154,6 +105,37 @@ class JavaRecap{
             }
             else if(option==5){
                 System.out.println("Total number of laptops is : " + inventory.getLaptops().size());
+                if(inventory.getLaptops().isEmpty()){
+                    rePromptingUser("laptop",2);
+                    option = keyboard.nextInt();
+                    if(option==2){
+                        inventory.addNewLaptop(laptop,laptops,inventory,keyboard);
+                        rePromptingUser("laptop",2);
+                        option = keyboard.nextInt();
+                    }
+                    if(option==5){
+                        displayInformation();
+                        option = keyboard.nextInt();
+                    }
+                }else{
+                    viewProductPrompt("laptop");
+                    option = keyboard.nextInt();
+                    if(option==1){
+                        laptopList = inventory.getLaptops();
+                        //just view book 1 =>
+                        if(laptopList.isEmpty()){
+                            System.out.println("The laptop inventory is currently empty at the moment");
+                            rePromptingUser("laptop",2);
+                            option = keyboard.nextInt();
+
+                        }else{
+                            System.out.println("Here is the information of the first laptop : ");
+                            System.out.println("Laptop Name : " + laptopList.getFirst().getLaptopName() + " Laptop Price : " + laptopList.getFirst().getLaptopPrice());
+                            rePromptingUser("laptop",2);
+                            option = keyboard.nextInt();
+                        }
+                    }
+                }
             }
             else if(option==6){
                 System.out.println("Total number of cars is : " + inventory.getCars().size());
@@ -176,45 +158,18 @@ class JavaRecap{
         System.out.println("Press 6 + enter key if you want to view number of cars");
         System.out.println("Press 0 + enter key if you want to cancel/exit the program");
     }
-    public static void addNewBook(Book book, ArrayList<Book> books, Inventory inventory){
 
-        Scanner keyboard = new Scanner(System.in);
-
-        //book variables
-        String bookName = "";
-        String authorName = "";
-        int numberOfPages = 0;
-        String isbnNumber = "";
-        int bookPrice = 0;
-
-        System.out.print("Enter book name : ");
-        bookName = keyboard.nextLine();
-        System.out.print("Enter author of the book :  ");
-        authorName = keyboard.nextLine();
-        System.out.print("Enter Number Of Pages : ");
-        numberOfPages = keyboard.nextInt();
-        keyboard.nextLine();
-        System.out.print("Enter ISBN Number of the book : ");
-        isbnNumber = keyboard.nextLine();
-        System.out.print("Enter Price Of The Book : ");
-        bookPrice = keyboard.nextInt();
-
-        //adding a book
-        book.setBookName(bookName);
-        book.setAuthorName(authorName);
-        book.setNumberOfPages(numberOfPages);
-        book.setISBNNumber(isbnNumber);
-        book.setBookPrice(bookPrice);
-
-        books.add(book);
-        inventory.setBooks(books);
-
-    }
     //function for reprompting user to enter information
     public static void rePromptingUser(String productName,int productNumber){
         System.out.println("Would you like to add a " + productName + " ? ");
         System.out.println("Enter " + productNumber + " Enter key if you would like to add a " + productName + "");
         System.out.println("Enter 5 + Enter key for the main menu.");
         System.out.println("Enter 0 + Enter key to exit the program");
+    }
+    public static void viewProductPrompt(String productName){
+        System.out.println("Would you like to view which" + productName + " are in the inventory" );
+        System.out.println("Press 1 + Enter key if yes : ");
+        System.out.println("Press 2 + Enter key if no : ");
+        System.out.println("Press 0 + Enter key if you want to exit the program");
     }
 }
